@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - Womect</title>
+    </head>
+    <body>
+        <main>
+            <aside>
+              <ul class="asideList">
+                <li><a href="profile.html" class="asideAnchor">Profile</a></li>
+                <li><a href="alerts.html" class="asideAnchor">Alerts</a></li>
+                <li><a href="group.html" class="asideAnchor">Groups</a></li>
+              </ul>
+            </aside>
+            <section>
+                <input type="checkbox" id="myInput">
+                <label for="myInput">
+                  <span class="bar top"></span>
+                  <span class="bar middle"></span>
+                  <span class="bar bottom"></span>
+                </label>
+
+                <div class="content">
+                	
+                    <button  type="submit">HELP</button>
+                    <script src="function.js"></script>
+
+
+                    <a href="https://codepen.io/tonkec" class="ua" target="_blank">
+		            <i class="fa fa-user"></i></a>
+		            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+					<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+					<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+					<script type="text/javascript">
+
+							 
+
+							function geolocalizar(){
+								$("#estado").text("Buscandote...");
+								navigator.geolocation.getCurrentPosition(mostrar,error);
+								
+							}
+							function mostrar(posicion){
+								/* posicion es el parametro que tiene los valores, las variables para latitud y longitud las obtenemos del parametro posicion.coords*/
+								var lat = posicion.coords.latitude; //obtengo la latitud
+								var lon = posicion.coords.longitude; //obtengo la longitud
+								
+								/*Escribir en la etiqueta las coordenandas*/
+								$("#estado").text("Te he encontrado, estas en: " + lat + " , " + lon);
+
+
+								var firebaseConfig = {
+							    apiKey: "AIzaSyBK0p0UmMfgo46AO63voM2mEs5xYXBXTWs",
+							    authDomain: "womect.firebaseapp.com",
+							    databaseURL: "https://womect.firebaseio.com",
+							    projectId: "womect",
+							    storageBucket: "",
+							    messagingSenderId: "669596694160",
+							    appId: "1:669596694160:web:1d2087519d7adfec"
+							  };
+							  // Initialize Firebase
+							  firebase.initializeApp(firebaseConfig);
+
+							 	var ubicacion = firebase.database().ref("alert/");
+								ubicacion.set ({
+								   fecha: {
+								      hora : {
+								      	lat: "51.461031",
+								      	lon: "5.4751791"
+								      }
+								   },
+								});
+				 			  	
+							}
+							
+							
+							/*Funcion para el error cuando no hay geolocalizacion*/
+							function error(error)
+							{
+								//El parametro error tambien tiene valores de los errores exactos, pero aqui no lo usaremos.
+								$("#estado").text("No te encontre, pero lo voy a seguir intentando.");
+							}
+					</script>
+                   	<p id="estado"></p>
+					<a href="javascript: geolocalizar();" title="Geolozalizar">Localizar</a>
+                </div>
+            </section>  
+          </main>
+
+      
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#config-web-app -->>
+
+	<script>
+	  
+
+	  var nombre = document.getElementById('nombre');
+	  var dbRef = firebase.database().ref().child('users/name');
+	  dbRef.on('value', snap => nombre.innerText = snap.val());
+
+
+	</script>
+
+    </body>
+</html>

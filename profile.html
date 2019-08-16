@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="stylePages.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+	<script src="function.js"></script>
+	<div class="header">
+		<i onclick="goBack()" class="left"></i>
+		<h1>Profile</h1>
+	</div>
+	<div class="content">
+		<ul>
+			<li><h2 id="nombre"></h2></li>
+			<li><h2 id="apellido"></h2></li>
+			<li><h2 id="cell"></h2></li>
+			<li><h2> Change password </h2></li>
+			<li><h2> Delete account </h2></li>
+			<li><h2> Report a problem </h2></li>
+			<li><a href="index.html"><h2> Log out </h2></a></li>
+		</ul>
+	</div>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#config-web-app -->>
+
+	<script>
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyBK0p0UmMfgo46AO63voM2mEs5xYXBXTWs",
+	    authDomain: "womect.firebaseapp.com",
+	    databaseURL: "https://womect.firebaseio.com",
+	    projectId: "womect",
+	    storageBucket: "",
+	    messagingSenderId: "669596694160",
+	    appId: "1:669596694160:web:1d2087519d7adfec"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+
+	  var nombre = document.getElementById('nombre');
+	  var dbRef = firebase.database().ref().child('users/name');
+	  dbRef.on('value', snap => nombre.innerText = snap.val());
+
+	  var apellido = document.getElementById('apellido');
+	  var dbRef = firebase.database().ref().child('users/lastname');
+	  dbRef.on('value', snap => apellido.innerText = snap.val());
+
+	  var cell = document.getElementById('cell');
+	  var dbRef = firebase.database().ref().child('users/cellphone');
+	  dbRef.on('value', snap => cell.innerText = snap.val());
+
+	</script>
+</body>
+</html>
